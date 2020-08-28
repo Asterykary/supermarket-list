@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+    <ion-title size= "16px" color="light">
+      Supermarket List
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" fill="clear">Cerrar sesion</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="false">
+    <div class="icon-container">
+      <ion-icon class="icon" name="basket-outline"></ion-icon>
+    </div>
+    <p class="title-icon">No hay productos ingresados</p>
+  </ng-container>
+
+  <ion-list *ngIf="true">
+    <ion-list-header>
+        <ion-label class="ion-text-center">
+          Completado: 50%
+        </ion-label>
+    </ion-list-header>
+    <ion-progress-bar value="0.5"></ion-progress-bar>
+    
+
+    <ion-item-sliding>
+      <ion-item-options side="end">
+        <ion-item-option color="tertiary">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <ion-text color="primary">
+            <h3>Cantidad: 12</h3>
+          </ion-text>
+          <p>Manzana verde</p>
+        </ion-label>
+        <ion-checkbox mode="ios" slot="end"></ion-checkbox>
+      </ion-item>
+    </ion-item-sliding>
+
+  </ion-list>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="modalAgregarProducto()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

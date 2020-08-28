@@ -1,0 +1,27 @@
+ ion-toolbar{
+   ion-title{
+     font-size: 16px;
+   }
+   ion-buttons{
+     ion-button{
+      font-size: 9px;
+     }
+   }
+ }
+ ion-content{
+   .icon-container{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+        .icon{
+          color: var(--font-light-gray);
+          font-size: 97px;
+          margin-top: 277px;
+        }
+    }
+   .title-icon{
+      text-align: center;
+      font-size: 21px;
+      color: var(--font-light-gray);
+    }
+  } 
