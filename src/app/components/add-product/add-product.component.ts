@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add-product',
@@ -8,7 +9,17 @@ import { ModalController } from '@ionic/angular';
 })
 export class AddProductComponent implements OnInit {
 
-  constructor(public modalController: ModalController) { }
+  public productForm: FormGroup;
+
+  get nombre(): AbstractControl {return this.productForm.get('nombre')}
+  get cantidad(): AbstractControl {return this.productForm.get('cantidad')}
+
+  constructor(public modalController: ModalController, private fb: FormBuilder) { 
+    this.productForm = this.fb.group({
+      nombre: ['', [Validators.required]],
+      cantidad: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit() {}
 

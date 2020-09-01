@@ -10,7 +10,7 @@ import { AddProductComponent } from '../../components/add-product/add-product.co
 export class HomePage {
 
   constructor(public modalController: ModalController) {
-    
+    this.modalAgregarProducto();
   }
 
   async modalAgregarProducto(){
