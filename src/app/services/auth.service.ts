@@ -4,24 +4,18 @@ import * as firebase from 'firebase/app';
 import {Usuario} from 'src/app/models/usuario.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NavController, LoadingController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  public user: firebase.User;
+  public user: Observable<firebase.User>;
 
   constructor(private firebaseAuth: AngularFireAuth, private firestore: AngularFirestore, 
               private navCtrl: NavController, public loadingController: LoadingController) {
-    firebaseAuth.authState.subscribe((user)=>{
-      if(user){
-        this.user = user;
-      }else{
-        this.user = null;
-      }
-
-    });
+    this.user = firebaseAuth.authState;
   }
 
   async loginGoogle(){

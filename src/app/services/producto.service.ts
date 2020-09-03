@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Producto } from '../models/producto.model';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,16 @@ export class ProductoService {
 
   productos: Producto[] = [];
 
-  loading: boolean = false;
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore, public loadingController: LoadingController) { }
 
-  obtenerProductos(idusuario: string){
-    this.loading = true;
+  async obtenerProductos(idusuario: string){
+    const loading = await this.loadingController.create({
+      message: 'Obteniendo producto'
+    });
+    await loading.present();
+
+    console.log(idusuario);
     this.firestore.collection<Producto>('productos', ref => ref.where('idusuario', '==', idusuario))
     .get().toPromise().then((resp) =>{
       this.productos = [];
@@ -27,13 +32,15 @@ export class ProductoService {
           listo: prod.data().listo
         }
         this.productos.push(producto);
+        
+        
       });
-      this.loading = false;
+      loading.dismiss();
+      console.log(this.productos);
     });
   }
 
   actualizarProducto(producto: Producto){
-    this.loading = true;
     this.firestore.collection<Producto>('productos').doc(producto.id).set(producto)
     .then((resp) =>{
       this.obtenerProductos(producto.idusuario);
@@ -41,7 +48,6 @@ export class ProductoService {
   }
 
   borrarProducto(producto: Producto){
-    this.loading = true;
     this.firestore.collection<Producto>('productos').doc(producto.id).delete()
     .then((resp) => {
       this.obtenerProductos(producto.idusuario);
@@ -49,7 +55,6 @@ export class ProductoService {
   }
 
   agregarProducto(producto: Producto){
-    this.loading = true;
     producto.id = this.firestore.createId();
     this.firestore.collection<Producto>('productos').doc(producto.id).set(producto)
     .then((resp)=>{
