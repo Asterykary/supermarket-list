@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddProductComponent } from '../../components/add-product/add-product.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,10 @@ import { AddProductComponent } from '../../components/add-product/add-product.co
 })
 export class HomePage {
 
-  constructor(public modalController: ModalController) {
-    this.modalAgregarProducto();
+  get user() {return this.auth.user}
+
+  constructor(public modalController: ModalController, private auth: AuthService) {
+    //this.modalAgregarProducto();
   }
 
   async modalAgregarProducto(){
@@ -19,6 +22,10 @@ export class HomePage {
       cssClass: 'my-custom-class'
     });
     return await modal.present();
+  }
+
+  cerrarSesion(){
+    this.auth.cerrarSesion();
   }
 
 }
